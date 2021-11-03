@@ -59,7 +59,7 @@ A brief explanation on the basic workflow of the application.
    ganache-cli
    ```
 
-   > Note: Do not close `ganache-cli` (the blockchain network needs to be running all the time). Or using Ganache if do not want to be cleared all after `ganache-cli` exist
+   > Note: Do not close `ganache-cli` (the blockchain network needs to be running all the time). Or using Ganache if do not want to be cleared all accounts after `ganache-cli` exist
 
 2. Configure metamask on the browser with following details
 
