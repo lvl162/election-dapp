@@ -1,0 +1,32 @@
+
+// tech
+- 1 react front-end web3
+- 1 ganache net to test
+
+// react 
+
+- 1 admin 
+    + add admin info (make stage to REG)
+    + list voters registered to accept or not
+    + list candidate and add new candidate
+    + show current STAGE -> done setup mark current stage to VOTE
+- 1 users
+    + register a voting authorization
+    + if registered -> 
+        + if not accepted: show waiting for a acceptation from admin page
+        + accepted: 
+            + if (voted) -> show candidate had voted
+            + if not show vote page (candidates list)
+    + if not registered -> show reg page 
+    + if election end: result page
+
+them
+
+1 vote 
+- 1: 3 
+- 2: 2
+- 3: 1
+
+xoa name, phone
+
+show ten navbar
