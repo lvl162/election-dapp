@@ -1,6 +1,6 @@
-# Decentralized Voting (dVoting)
+# Decentralized Election
 
-A decentralized voting system based on [Ethereum blockchain](https://ethereum.org/dapps/) technology.
+A decentralized election system based on [Ethereum blockchain](https://ethereum.org/dapps/) technology.
 
 ## System Workflow
 
@@ -59,7 +59,7 @@ A brief explanation on the basic workflow of the application.
    ganache-cli
    ```
 
-   > Note: Do not close `ganache-cli` (the blockchain network needs to be running all the time). Or using Ganache if do not want to be cleared all after `ganache-cli` exist
+   > Note: Do not close `ganache-cli` (the blockchain network needs to be running all the time). Or using Ganache if do not want to be cleared all accounts after `ganache-cli` exist
 
 2. Configure metamask on the browser with following details
 
@@ -76,10 +76,14 @@ A brief explanation on the basic workflow of the application.
 
    > Note: Use `truffle migrate --reset` for re-deployments
 
-5. Launch the development server (fronted)
+5. Launch the development server
 
    ```shell
    cd client
    npm install
    npm start
    ```
+ 6. Share the dev view by cloud tunnel
+ ```
+ `cloudtunel` --url http://localhost:3000
+ ```
