@@ -7,9 +7,9 @@ contract Election {
     uint256 voterCount;
     event votingCompleted();
     event registeredAsVoter(address _voter, uint256 _registeredAt);
-    event stageChange(Stage _stage, uint256 _changedAt );
-    event votedToCandidate(address _voter, uint[] points, uint256 _votedAt);
-    event candidateAdded(address _admin, string _name,  uint256 _addedAt);
+    event stageChange(Stage _stage, uint256 _changedAt);
+    event votedToCandidate(address _voter, uint256[] points, uint256 _votedAt);
+    event candidateAdded(address _admin, string _name, uint256 _addedAt);
     uint256 startTime;
     enum Stage {
         Init,
@@ -18,15 +18,14 @@ contract Election {
         Done
     }
     Stage public stage = Stage.Init;
-    
-    constructor() public{
+
+    constructor() public {
         // Initilizing default values
         admin = msg.sender;
         candidateCount = 0;
         voterCount = 0;
         startTime = block.timestamp;
-        emit stageChange(Stage.Init, block.timestamp );
-
+        emit stageChange(Stage.Init, block.timestamp);
     }
 
     function getAdmin() public view returns (address) {
@@ -59,7 +58,7 @@ contract Election {
         onlyAdmin
         validStage(Stage.Reg)
     {
-        require(candidateCount <= 2);
+        // require(candidateCount <= 29);
         Candidate memory newCandidate = Candidate({
             candidateId: candidateCount,
             header: _header,
@@ -68,8 +67,7 @@ contract Election {
         });
         candidateDetails[candidateCount] = newCandidate;
         candidateCount += 1;
-        emit candidateAdded(msg.sender,  _header, block.timestamp);
-
+        emit candidateAdded(msg.sender, _header, block.timestamp);
     }
 
     // Modeling a Election Details
@@ -105,8 +103,7 @@ contract Election {
             true
         );
         stage = Stage.Reg;
-        emit stageChange(Stage.Reg, block.timestamp );
-
+        emit stageChange(Stage.Reg, block.timestamp);
     }
 
     // Get Elections details
@@ -148,15 +145,13 @@ contract Election {
         bool hasVoted;
         bool isRegistered;
         uint256[] pointForEachCandidate;
+        uint256[] votedForCandidates;
     }
     address[] public voters; // Array of address to store address of voters
     mapping(address => Voter) public voterDetails;
 
     // Request to be added as voter
-    function registerAsVoter()
-        public
-        validStage(Stage.Reg)
-    {
+    function registerAsVoter() public validStage(Stage.Reg) {
         require(msg.sender != admin && !voterDetails[msg.sender].isRegistered);
 
         voterDetails[msg.sender].voterAddress = msg.sender;
@@ -169,15 +164,18 @@ contract Election {
         emit registeredAsVoter(msg.sender, block.timestamp);
     }
 
-
     // Vote
-    function vote(uint[] memory points) public validStage(Stage.Vote) {
+    function vote(uint256[] memory ids, uint256[] memory points)
+        public
+        validStage(Stage.Vote)
+    {
         require(voterDetails[msg.sender].hasVoted == false);
         require(voterDetails[msg.sender].isRegistered == true);
-        require(points.length == 3);
+        require(points.length == ids.length);
         // voterDetails[msg.sender].votedToCandidate = candidateId;
-        for(uint i = 0; i<points.length; i++) {
+        for (uint256 i = 0; i < points.length; i++) {
             voterDetails[msg.sender].pointForEachCandidate.push(points[i]);
+            voterDetails[msg.sender].votedForCandidates.push(ids[i]);
             candidateDetails[i].totalPoint += points[i];
         }
         voterDetails[msg.sender].hasVoted = true;
@@ -199,14 +197,12 @@ contract Election {
 
     function endElection() public onlyAdmin {
         stage = Stage.Done;
-        emit stageChange(Stage.Done, block.timestamp );
-
+        emit stageChange(Stage.Done, block.timestamp);
     }
 
     function startVotingElection() public onlyAdmin {
         stage = Stage.Vote;
-        emit stageChange(Stage.Vote, block.timestamp );
-
+        emit stageChange(Stage.Vote, block.timestamp);
     }
 
     function winningProposal()
@@ -229,5 +225,4 @@ contract Election {
         require(stage == reqStage);
         _;
     }
-    
 }
