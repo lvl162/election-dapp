@@ -36,12 +36,18 @@ export default function Result() {
       setElStarted(start);
       const end = await election.methods.getEnd().call();
       setElEnded(end);
-      const candidatesGet = [];
+
+      const candidatesPromises = [];
       for (let i = 0; i < candidateCount; i++) {
-        const candidate = await election.methods.candidateDetails(i).call();
-        candidatesGet.push(candidate);
+        const candidate = election.methods.candidateDetails(i).call();
+
+        candidatesPromises.push(candidate);
       }
-      setCandidates(candidatesGet);
+      Promise.all(candidatesPromises)
+        .then((res) => {
+          setCandidates(res);
+        })
+        .catch((err) => console.log(err));
     };
     if (election) getAllState();
     return () => {
@@ -59,7 +65,6 @@ export default function Result() {
             message={'The election has not been started for voting.'}
           />
         )}
-        {/* {cho xem kq hien tai} */}
         {votingStarted && !elEnded && (
           <>
             <div className='container-main' style={{ borderTop: '1px solid' }}>
@@ -67,7 +72,7 @@ export default function Result() {
               <small>Total candidates: {candidates.length}</small>
               {candidates.length < 1 ? (
                 <div className='container-item attention'>
-                  <center>No candidates.</center>
+                  <center>Loading...</center>
                 </div>
               ) : (
                 <>
@@ -78,13 +83,15 @@ export default function Result() {
                         <th>Candidate</th>
                         <th>Total Points</th>
                       </tr>
-                      {candidates.map((candidate) => (
-                        <tr>
-                          <td>{candidate.candidateId}</td>
-                          <td>{candidate.header}</td>
-                          <td>{candidate.totalPoint}</td>
-                        </tr>
-                      ))}
+                      {candidates
+                        .sort((p1, p2) => p2.totalPoint - p1.totalPoint)
+                        .map((candidate) => (
+                          <tr>
+                            <td>{candidate.candidateId}</td>
+                            <td>{candidate.header}</td>
+                            <td>{candidate.totalPoint}</td>
+                          </tr>
+                        ))}
                     </table>
                   </div>
                 </>
@@ -148,11 +155,11 @@ export function displayResults(candidates) {
         <div className='container-main'>{displayWinner(candidates)}</div>
       ) : null}
       <div className='container-main' style={{ borderTop: '1px solid' }}>
-        <h2>Results</h2>
+        <h2>Final Results</h2>
         <small>Total candidates: {candidates.length}</small>
         {candidates.length < 1 ? (
           <div className='container-item attention'>
-            <center>No candidates.</center>
+            <center>Loading...</center>
           </div>
         ) : (
           <>
@@ -163,15 +170,17 @@ export function displayResults(candidates) {
                   <th>Candidate</th>
                   <th>Total Points</th>
                 </tr>
-                {candidates.map(renderResults)}
+                {candidates
+                  .sort((p1, p2) => p2.totalPoint - p1.totalPoint)
+                  .map(renderResults)}
               </table>
             </div>
-            <div
+            {/* <div
               className='container-item'
               style={{ border: '1px solid black' }}
             >
               <center>That is all.</center>
-            </div>
+            </div> */}
           </>
         )}
       </div>

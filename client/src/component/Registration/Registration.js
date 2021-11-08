@@ -128,7 +128,7 @@ export default class Registration extends Component {
     await this.state.ElectionInstance.methods
       .registerAsVoter()
       .send({ from: this.state.account, gas: 1000000 })
-      .on('recept', window.location.reload)
+      .on('receipt', () => window.location.reload())
       .on('error', (err) => console.log(err));
   };
   render() {

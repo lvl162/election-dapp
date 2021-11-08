@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.4.21 <0.9.0;
 
-contract Election {
+contract Election2 {
     address admin;
     uint256 candidateCount;
     uint256 voterCount;

@@ -1,0 +1,106 @@
+/* html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+} */
+
+/*========== VARIABLES CSS ==========*/
+:root {
+  /*========== Colors ==========*/
+  --primary-color: ;
+  --primary-color-alt: ;
+  --secondary-color: ;
+  --secondary-color-alt: ;
+  --text-color: ;
+  --title-color: ;
+
+  /*========== Font and typography ==========*/
+  --title-font: ;
+  --body-font: 'Poppins', sans-serif;
+  --biggest-font-size: 8rem;
+  --bigger-font-size: 5.6rem;
+  --big-font-size: 4rem;
+  --h2-font-size: 2rem;
+  --h3-font-size: 1.8rem;
+  --normal-font-size: 1.5rem;
+  --small-font-size: 1.3rem;
+  --smaller-font-size: 1.2rem;
+  --text-line-height: 3.2rem;
+
+  /*========== Font weight ==========*/
+  --font-thin: 300;
+  --font-medium: 500;
+  --font-semi-bold: 600;
+}
+
+/*  Breakpoints: 320 480 768-tablet 1024-laptop 1280-retina 1366 1440 1660 1920  */
+/*========== RESPONSIVE TYPOGRAPHY ==========*/
+@media screen and (min-width: 968px) {
+  :root {
+    --biggest-font-size: 12rem;
+    --bigger-font-size: 7.2rem;
+    --big-font-size: 6.4rem;
+    --h1-font-size: 3rem;
+    --h2-font-size: 2.4rem;
+    --h3-font-size: 2rem;
+    --normal-font-size: 1.6rem;
+    --small-font-size: 1.4rem;
+    --smaller-font-size: 1.3rem;
+  }
+}
+
+/*========== BASE ==========*/
+.list-vote {
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  color: var(--text-color);
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 1.5rem;
+}
+
+.voting_header {
+  font-size: var(--h1-font-size);
+  margin: 3rem;
+  text-align: center;
+  letter-spacing: 2px;
+  font-weight: 500;
+}
+
+select {
+  background-color: #fff;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  border: 1px solid #edc709;
+  outline: none;
+  border-radius: 1rem;
+  /*for firefox*/
+  -moz-appearance: none;
+  /*for chrome*/
+  -webkit-appearance: none;
+  appearance: none;
+  padding: 2rem 8rem;
+  color: #edc709;
+  font-size: var(--h2-font-size);
+  cursor: pointer;
+}
+
+.submit-btn {
+  margin-top: 8rem;
+  padding: 2rem 4rem;
+  background-color: #c0a106;
+  color: #fff;
+  border: none;
+  text-transform: uppercase;
+  border-radius: 1rem;
+  font-size: var(--h3-font-size);
+  transition: all 0.4s ease;
+}
+
+.submit-btn:hover {
+  background-color: #fff;
+  color: #c0a106;
+  border: 1px solid #c0a106;
+}

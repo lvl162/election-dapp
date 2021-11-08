@@ -14,9 +14,12 @@ export default function Navbar() {
 
   useEffect(() => {
     if (account) {
-      const juryName = juries.filter((j) => j.key === account);
-      console.log(juryName);
-      setName(juryName[0].name);
+      if (juries[account]) {
+        setName(juries[account].name);
+      }
+      // const juryName = juries.filter((j) => j.key === account);
+      // console.log(juryName);
+      // if (juryName.length) setName(juryName[0].name);
       return () => {
         console.log('unmounting...');
       };

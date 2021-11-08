@@ -9,7 +9,7 @@ import getWeb3 from '../../../getWeb3';
 import Election from '../../../contracts/Election.json';
 
 import './Verification.css';
-
+import { juries } from '../../../data/players';
 export default class Registration extends Component {
   constructor(props) {
     super(props);
@@ -46,7 +46,7 @@ export default class Registration extends Component {
 
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.
-      instance.events.candidateAdded().on('data', (event) => {
+      instance.events.registerAsVoter().on('data', (event) => {
         console.log(event);
         window.location.reload();
       });
@@ -96,6 +96,7 @@ export default class Registration extends Component {
     }
   };
   renderUnverifiedVoters = (voter) => {
+    const name = voter.address ? juries[voter.address].name : '';
     const verifyVoter = async (verifiedStatus, address) => {
       await this.state.ElectionInstance.methods
         .verifyVoter(verifiedStatus, address)
@@ -104,28 +105,15 @@ export default class Registration extends Component {
     };
     return (
       <>
-        {voter.isVerified ? (
-          <div className='container-list success'>
-            <p style={{ margin: '7px 0px' }}>AC: {voter.address}</p>
-            <table>
-              <tr>
-                <th>Name</th>
-                <th>Phone</th>
-                <th>Voted</th>
-              </tr>
-              <tr>
-                <td>{voter.name}</td>
-                <td>{voter.phone}</td>
-                <td>{voter.hasVoted ? 'True' : 'False'}</td>
-              </tr>
-            </table>
-          </div>
-        ) : null}
         <div className='container-list success'>
           <table>
             <tr>
               <th>Account address</th>
               <td>{voter.address}</td>
+            </tr>
+            <tr>
+              <th>Name</th>
+              <td>{name}</td>
             </tr>
             <tr>
               <th>Voted</th>

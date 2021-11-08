@@ -1,14 +1,15 @@
 export const players = [
   {
-    id: 1,
-    img: 'https://img.uefa.com/imgml/TP/players/1/2022/324x324/103827.jpg',
-    name: 'Cesar Azpilicueta',
-    position: 'Goalkeeper',
-    nationality: 'Spain',
-    club: 'Chelsea',
+    id: 0,
+    img: 'https://img.uefa.com/imgml/TP/players/1/2022/324x324/250052469.jpg',
+    name: 'Mohamed Salah',
+    position: 'Striker',
+    nationality: 'Egypt',
+    club: 'Liverpool',
   },
+
   {
-    id: 2,
+    id: 1,
     img: 'https://img.uefa.com/imgml/TP/players/1/2022/324x324/250066739.jpg',
     name: 'Nicolo Barella',
     position: 'Midfielder',
@@ -16,7 +17,7 @@ export const players = [
     club: 'Inter Milan',
   },
   {
-    id: 3,
+    id: 2,
     img: 'https://img.uefa.com/imgml/TP/players/1/2022/324x324/93321.jpg',
     name: 'Karim Benzema',
     position: 'Striker',
@@ -24,7 +25,7 @@ export const players = [
     club: 'Real Madrid',
   },
   {
-    id: 4,
+    id: 3,
     img: 'https://img.uefa.com/imgml/TP/players/1/2022/324x324/250067749.jpg',
     name: 'Jorginho',
     position: 'Midfielder',
@@ -32,7 +33,7 @@ export const players = [
     club: 'Chelsea',
   },
   {
-    id: 5,
+    id: 4,
     img: 'https://img.uefa.com/imgml/TP/players/1/2022/324x324/250097248.jpg',
     name: 'N’Golo Kante',
     position: 'Midfielder',
@@ -40,12 +41,20 @@ export const players = [
     club: 'Chelsea',
   },
   {
-    id: 6,
+    id: 5,
     img: 'https://img.uefa.com/imgml/TP/players/1/2022/324x324/250010802.jpg',
     name: 'Romelu Lukaku',
     position: 'Striker',
     nationality: 'Belgium',
     club: 'Chelsea',
+  },
+  {
+    id: 6,
+    img: 'https://img.uefa.com/imgml/TP/players/1/2022/324x324/106375.jpg',
+    name: 'Luis Suarez',
+    position: 'Striker',
+    nationality: 'Uruguay',
+    club: 'Atletico Madrid',
   },
   {
     id: 7,
@@ -225,67 +234,59 @@ export const players = [
   },
   {
     id: 29,
-    img: 'https://img.uefa.com/imgml/TP/players/1/2022/324x324/250052469.jpg',
-    name: 'Mohamed Salah',
-    position: 'Striker',
-    nationality: 'Egypt',
-    club: 'Liverpool',
-  },
-  {
-    id: 30,
-    img: 'https://img.uefa.com/imgml/TP/players/1/2022/324x324/106375.jpg',
-    name: 'Luis Suarez',
-    position: 'Striker',
-    nationality: 'Uruguay',
-    club: 'Atletico Madrid',
+    img: 'https://img.uefa.com/imgml/TP/players/1/2022/324x324/103827.jpg',
+    name: 'Cesar Azpilicueta',
+    position: 'Goalkeeper',
+    nationality: 'Spain',
+    club: 'Chelsea',
   },
 ];
 
 //Juries
-export const juries = [
-  {
+export const juries = {
+  '0x7e3a7e66f6b82903aF6C9b0b19f193E5929b04FF': {
     id: 1,
     key: '0x7e3a7e66f6b82903aF6C9b0b19f193E5929b04FF',
     name: 'Lewis Haley',
   },
-  {
+  '0x21f6FcE8276E0949B82914586152e3d771E9498A': {
     id: 2,
     key: '0x21f6FcE8276E0949B82914586152e3d771E9498A',
     name: 'Dane Carson',
   },
-  {
+  '0x950dCC282982587cce2daf0f981047c9F78Aa48F': {
     id: 3,
     key: '0x950dCC282982587cce2daf0f981047c9F78Aa48F',
     name: 'Lewis Haley',
   },
-  {
+  '0x8da9cA82f7Acfd3921b4397ec36761188f04E951': {
     id: 4,
     key: '0x8da9cA82f7Acfd3921b4397ec36761188f04E951',
     name: 'Bradyn Forbes',
   },
-  {
+  '0xFa8Bb7Be95f77Cae772671546e1098aCf7417eC9': {
     id: 5,
     key: '0xFa8Bb7Be95f77Cae772671546e1098aCf7417eC9',
     name: 'Hallie Nash',
   },
-  {
+  '0xa173E33B8578d84b8242D9BE922354f1E0e7f8b1': {
     id: 6,
     key: '0xa173E33B8578d84b8242D9BE922354f1E0e7f8b1',
     name: 'Jean Lane',
   },
-  {
+  '0x3Cf5911Ca198C6CcC81344f7Ed6b297f8aD26675': {
     id: 7,
     key: '0x3Cf5911Ca198C6CcC81344f7Ed6b297f8aD26675',
     name: 'Natalee Skinner',
   },
-  {
+  '0xd5448bD789462d997a5Ccf40CE99C1c9a439A2A5': {
     id: 8,
     key: '0xd5448bD789462d997a5Ccf40CE99C1c9a439A2A5',
     name: 'Alexis Romero',
   },
-  {
+  '0x930914aF58a6e2296AE12728AA55C54910774a8c': {
     id: 9,
     key: '0x930914aF58a6e2296AE12728AA55C54910774a8c',
     name: 'Kade Snow',
   },
-];
+};

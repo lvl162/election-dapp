@@ -17,7 +17,8 @@ import Footer from './component/Footer/Footer';
 import './App.css';
 import { useElectionContract } from './hooks/contractHook';
 import { ElectionContext } from './hooks/context';
-import ListPlayers from './component/ListPlayers/ListPlayers';
+import PlayersCard from './component/PlayerCard/PlayersCard';
+import VoteForm from './component/VoteForm/VoteForm';
 
 const App = () => {
   const { election, account } = useElectionContract();
@@ -27,9 +28,9 @@ const App = () => {
         <Router>
           <Switch>
             <Route exact path='/' component={Home} />
-            <Route exact path='/players' component={ListPlayers} />
-            <Route exact path='/AddCandidate' component={AddCandidate} />
-            <Route exact path='/Voting' component={Voting} />
+            <Route exact path='/players' component={PlayersCard} />
+            <Route exact path='/Candidates' component={AddCandidate} />
+            <Route exact path='/Voting' component={VoteForm} />
             <Route exact path='/Results' component={Results} />
             <Route exact path='/Registration' component={Registration} />
             <Route exact path='/Verification' component={Verification} />

@@ -7,6 +7,8 @@ import Navbar from './Navbar/Navigation';
 import NavbarAdmin from './Navbar/NavigationAdmin';
 import UserHome from './UserHome';
 
+import { players } from '../data/players';
+
 import { ElectionContext } from '../hooks/context';
 
 // CSS
@@ -77,8 +79,7 @@ const Home = () => {
   // register and start election
   const registerElection = async (data) => {
     if (election) {
-      console.log('registering a election');
-      await election.methods
+      const promise1 = election.methods
         .setElectionDetails(
           data.adminFName.toLowerCase() + ' ' + data.adminLName.toLowerCase(),
           data.adminEmail.toLowerCase(),
@@ -86,8 +87,53 @@ const Home = () => {
           data.electionTitle.toLowerCase(),
           data.organizationTitle.toLowerCase()
         )
-        .send({ from: account, gas: 1000000 });
-      window.location.reload();
+        .send({ from: account, gas: 1000000 })
+        .on('receipt', (res) => {
+          // window.location.reload();
+        })
+        .on('error', (err) => {
+          // setLoading(false);
+          console.log(err);
+        });
+      let headers = [];
+      let slogans = [];
+      let headers2 = [];
+      let slogans2 = [];
+      players.forEach(async (player) => {
+        if (player.id < 15) {
+          headers.push(player.name);
+          slogans.push(player.club);
+        } else {
+          headers2.push(player.name);
+          slogans2.push(player.club);
+        }
+      });
+
+      const promise2 = election.methods
+        .addCandidate(headers, slogans)
+        .send({ from: account, gas: 2000000 })
+        .on('receipt', (res) => {
+          // window.location.reload();
+        })
+        .on('error', (err) => {
+          // setLoading(false);
+          console.log(err.message);
+        });
+      const promise3 = await election.methods
+        .addCandidate(headers2, slogans2)
+        .send({ from: account, gas: 2000000 })
+        .on('receipt', (res) => {
+          // window.location.reload();
+        })
+        .on('error', (err) => {
+          // setLoading(false);
+          console.log(err.message);
+        });
+      Promise.all([promise1, promise2, promise3])
+        .then((res) => {
+          window.location.reload();
+        })
+        .catch((err) => console.log(err));
     }
   };
 

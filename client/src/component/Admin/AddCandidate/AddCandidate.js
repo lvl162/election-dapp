@@ -7,6 +7,7 @@ import AdminOnly from '../../AdminOnly';
 
 import './AddCandidate.css';
 import { ElectionContext } from '../../../hooks/context';
+import { players } from '../../../data/players';
 
 export default function AddCandidate() {
   const { election, account } = useContext(ElectionContext);
@@ -34,11 +35,47 @@ export default function AddCandidate() {
         })
         .on('error', (err) => {
           // setLoading(false);
-          console.log(err);
         });
-      // console.log(res);
     }
   };
+
+  const addAll = async (e) => {
+    let headers = [];
+    let slogans = [];
+    let headers2 = [];
+    let slogans2 = [];
+    players.forEach(async (player) => {
+      if (player.id < 15) {
+        headers.push(player.name);
+        slogans.push(player.club);
+      } else {
+        headers2.push(player.name);
+        slogans2.push(player.club);
+      }
+    });
+
+    await election.methods
+      .addCandidate(headers, slogans)
+      .send({ from: account, gas: 2000000 })
+      .on('receipt', (res) => {
+        // window.location.reload();
+      })
+      .on('error', (err) => {
+        // setLoading(false);
+        console.log(err.message);
+      });
+    await election.methods
+      .addCandidate(headers2, slogans2)
+      .send({ from: account, gas: 2000000 })
+      .on('receipt', (res) => {
+        window.location.reload();
+      })
+      .on('error', (err) => {
+        // setLoading(false);
+        console.log(err.message);
+      });
+  };
+
   useEffect(() => {
     const getAllState = async () => {
       if (election) {
@@ -49,15 +86,25 @@ export default function AddCandidate() {
           .call();
 
         setCandidateCount(candidateCount);
-        const candidatesGet = [];
+        const candidatesPromises = [];
+        // for (let i = 0; i < candidateCount; i++) {
+        //   const candidate = await election.methods.candidateDetails(i).call();
+
+        //   candidatesGet.push(candidate);
+        // }
         for (let i = 0; i < candidateCount; i++) {
-          const candidate = await election.methods.candidateDetails(i).call();
+          const candidate = election.methods.candidateDetails(i).call();
 
-          candidatesGet.push(candidate);
+          candidatesPromises.push(candidate);
         }
-        setCandidates(candidatesGet);
+        Promise.all(candidatesPromises)
+          .then((res) => {
+            setCandidates(res);
+          })
+          .catch((err) => console.log(err));
+        // setCandidates(candidatesGet);
 
-        console.log(candidateCount, candidates);
+        // console.log(candidateCount, candidates);
       }
     };
     if (election) {
@@ -65,6 +112,7 @@ export default function AddCandidate() {
     }
     return () => {};
   }, [election, candidateCount]);
+
   const renderAdded = (candidate) => {
     return (
       <>
@@ -99,7 +147,7 @@ export default function AddCandidate() {
       <div className='container-main'>
         <h2>Add a new candidate</h2>
         <small>Total candidates: {candidateCount}</small>
-        <div className='container-item'>
+        {/* <div className='container-item'>
           <form className='form'>
             <label className={'label-ac'}>
               Header
@@ -129,7 +177,7 @@ export default function AddCandidate() {
               Add
             </button>
           </form>
-        </div>
+        </div> */}
       </div>
       <div className='container-main' style={{ borderTop: '1px solid' }}>
         <div className='container-item info'>
